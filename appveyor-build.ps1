@@ -29,12 +29,12 @@ $env:PATH = "$env:QT5\bin;$env:PATH"
 mkdir cmakebuild
 cd .\cmakebuild
 
-cmake -DCMAKE_BUILD_TYPE=Release -DRESINSIGHT_ENABLE_UNITY_BUILD=on -DRESINSIGHT_ENABLE_PRECOMPILED_HEADERS=on "-DCMAKE_PREFIX_PATH=$env:QT5" -DRESINSIGHT_ENABLE_GRPC=true -DRESINSIGHT_GRPC_PYTHON_EXECUTABLE=C:/Python37/python.exe -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake -A x64 ..
+cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DRESINSIGHT_ENABLE_UNITY_BUILD=on -DRESINSIGHT_ENABLE_PRECOMPILED_HEADERS=on "-DCMAKE_PREFIX_PATH=$env:QT5" -DRESINSIGHT_ENABLE_GRPC=true -DRESINSIGHT_GRPC_PYTHON_EXECUTABLE=C:/Python37/python.exe -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake -A x64 ..
 
 cmake --build . --target ResInsight --config Release
 
 ### TEST
-$env:RESINSIGHT_EXECUTABLE="$env:APPVEYOR_BUILD_FOLDER/cmakebuild/ApplicationCode/Release/ResInsight.exe" 
+$env:RESINSIGHT_EXECUTABLE="$env:APPVEYOR_BUILD_FOLDER/cmakebuild/ApplicationCode/ResInsight.exe" 
 
 cd ../ApplicationCode/GrpcInterface/Python/rips
 python -m pytest --console

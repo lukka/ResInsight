@@ -231,19 +231,11 @@ add_custom_target(octave_plugins ALL DEPENDS
 
             get_filename_component(Filename "${oct_bin}" NAME)
 
-            if(MSVC)
-                add_custom_command(TARGET octave_plugins POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    "${oct_bin}"
-                    "${CMAKE_CURRENT_BINARY_DIR}/../ApplicationCode/$<CONFIGURATION>/${Filename}"
-                )
-            else()
-                add_custom_command(TARGET octave_plugins POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    "${oct_bin}"
-                    "${CMAKE_CURRENT_BINARY_DIR}/../ApplicationCode/${Filename}"
-                )
-            endif()
+            add_custom_command(TARGET octave_plugins POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${oct_bin}"
+                "${CMAKE_CURRENT_BINARY_DIR}/../ApplicationCode/${Filename}"
+            )
         endforeach( oct_bin )
     endif()
 
